@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // Material UI
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Drawer as DrawerMU,
+  SwipeableDrawer,
   Divider,
   List,
   ListItem,
@@ -23,7 +23,10 @@ const Drawer = props => {
   const { appActions, routesThunks, classes, drawer } = props;
 
   return (
-    <DrawerMU open={drawer.open} onClose={appActions.closeDrawer}>
+    <SwipeableDrawer
+      open={drawer.open}
+      onOpen={appActions.openDrawer}
+      onClose={appActions.closeDrawer}>
       <div
         tabIndex={0}
         role="button"
@@ -56,7 +59,7 @@ const Drawer = props => {
           </List>
         </div>
       </div>
-    </DrawerMU>
+    </SwipeableDrawer>
   );
 };
 

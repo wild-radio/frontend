@@ -7,17 +7,19 @@ import { connect } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 
+// Thunks & actions
+import * as appActions from './store/actions';
+import * as routesThunks from '../Routes/store/thunks';
+
 // Componentes internos
 import AppBar from './AppBar';
 import Drawer from './Drawer';
-
-// Thunks & actions
-import * as appActions from './store/actions';
+import Routes from '../Routes/Routes';
 
 const theme = createMuiTheme({
   palette: {
     common: { black: '#000', white: 'rgba(255, 255, 255, 1)' },
-    background: { paper: '#fff', default: '#fafafa' },
+    background: { paper: '#fff', default: '#eee' },
     primary: {
       light: 'rgba(72, 169, 153, 1)',
       main: 'rgba(0, 119, 105, 1)',
@@ -42,12 +44,13 @@ const theme = createMuiTheme({
 
 const App = props => {
   return (
-    <CssBaseline>
-      <MuiThemeProvider theme={theme}>
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline>
         <AppBar {...props} />
         <Drawer {...props} />
-      </MuiThemeProvider>
-    </CssBaseline>
+        <Routes />
+      </CssBaseline>
+    </MuiThemeProvider>
   );
 };
 
@@ -57,6 +60,7 @@ const mapStateToProps: Function = state => ({
 
 const mapDispatchToProps: Function = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch),
+  routesThunks: bindActionCreators(routesThunks, dispatch),
 });
 
 export default connect(

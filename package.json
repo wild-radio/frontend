@@ -1,0 +1,26 @@
+{
+  "name": "wildradio-frontend",
+  "version": "1.0.0",
+  "description": "Frontend do projeto WildRadio",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wild-radio/frontend.git"
+  },
+  "author": "Renato Böhler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wild-radio/frontend/issues"
+  },
+  "homepage": "https://github.com/wild-radio/frontend#readme",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-scripts": "1.1.5"
+  }
+}

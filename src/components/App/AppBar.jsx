@@ -1,5 +1,8 @@
+// React & Redux
 import React from 'react';
 import PropTypes from 'prop-types';
+
+// Material UI
 import { withStyles } from '@material-ui/core/styles';
 import { Button, AppBar as AppBarMU, Toolbar, Typography, IconButton } from '@material-ui/core';
 import { Menu, Adjust } from '@material-ui/icons';
@@ -33,7 +36,11 @@ const AppBar = props => {
     <div className={classes.root}>
       <AppBarMU position="static">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+          <IconButton
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="Menu"
+            onClick={props.appActions.openDrawer}>
             <Menu />
           </IconButton>
           <Typography variant="title" color="inherit" className={classes.grow}>
@@ -51,6 +58,7 @@ const AppBar = props => {
 
 AppBar.propTypes = {
   classes: PropTypes.object.isRequired,
+  appActions: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(AppBar);

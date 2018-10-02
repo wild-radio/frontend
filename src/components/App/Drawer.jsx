@@ -1,5 +1,7 @@
+// React & Redux
 import React from 'react';
 import PropTypes from 'prop-types';
+// Material UI
 import { withStyles } from '@material-ui/core/styles';
 import {
   Drawer as DrawerMU,
@@ -18,12 +20,12 @@ const styles = {
 };
 
 const Drawer = props => {
-  const { classes } = props;
-
-  const closeDrawer = () => console.log('closeDrawer');
+  const { appActions, classes, drawer } = props;
+  const { closeDrawer } = appActions;
+  const { open } = drawer;
 
   return (
-    <DrawerMU open={true} onClose={closeDrawer}>
+    <DrawerMU open={open} onClose={closeDrawer}>
       <div tabIndex={0} role="button" onClick={closeDrawer} onKeyDown={closeDrawer}>
         <div className={classes.list}>
           <List>
@@ -58,6 +60,8 @@ const Drawer = props => {
 
 Drawer.propTypes = {
   classes: PropTypes.object.isRequired,
+  appActions: PropTypes.object.isRequired,
+  drawer: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Drawer);

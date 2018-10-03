@@ -1,11 +1,17 @@
 // React & Redux
 import React from 'react';
+import { connect } from 'react-redux';
+import { reduxForm } from 'redux-form';
 
-// Componentes internos
-import Frame from '../../components/Frame/Frame';
+// Componente filho
+import Configuracoes from './Configuracoes';
 
-export default () => (
-  <Frame title="Configurações" primaryButton="Salvar" secondaryButton="Descartar">
-    TODO: configurações
-  </Frame>
-);
+const FORM_NAME = 'configuracoes';
+
+let ConfiguracoesContainer = props => <Configuracoes {...props} />;
+
+ConfiguracoesContainer = reduxForm({
+  form: FORM_NAME,
+})(ConfiguracoesContainer);
+
+export default connect()(ConfiguracoesContainer);

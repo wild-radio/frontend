@@ -1,3 +1,7 @@
+// React & Redux
 import React from 'react';
 
-export default () => <span>TODO: configurações</span>;
+// Componentes internos
+import Frame from '../../components/Frame/Frame';
+
+export default () => <Frame title="Configurações">TODO: configurações</Frame>;

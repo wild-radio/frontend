@@ -1,3 +1,7 @@
+// React & Redux
 import React from 'react';
 
-export default () => <span>TODO: novas capturas</span>;
+// Componentes internos
+import Frame from '../../components/Frame/Frame';
+
+export default () => <Frame title="Novas capturas">TODO: novas capturas</Frame>;

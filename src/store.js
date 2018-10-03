@@ -9,11 +9,7 @@ import app from './components/App/store/reducers';
 
 export const history = createBrowserHistory();
 
-const middlewares = [
-  thunk,
-  routerMiddleware(history),
-  // sagaMiddleware
-];
+const middlewares = [thunk, routerMiddleware(history)];
 
 const rootReducer = combineReducers({
   // form: reduxFormReducer,

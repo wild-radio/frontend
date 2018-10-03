@@ -1,6 +1,7 @@
 // React & Redux
 import React from 'react';
 import PropTypes from 'prop-types';
+
 // Material UI
 import { withStyles } from '@material-ui/core/styles';
 import {
@@ -11,7 +12,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
-import { AddAPhoto, PhotoAlbum, Settings } from '@material-ui/icons';
+import { AddAPhoto, Home, PhotoAlbum, Settings } from '@material-ui/icons';
 
 const styles = {
   list: {
@@ -35,6 +36,13 @@ const Drawer = props => {
         <div className={classes.list}>
           <List>
             <div>
+              <ListItem button onClick={routesThunks.inicio}>
+                <ListItemIcon>
+                  <Home />
+                </ListItemIcon>
+                <ListItemText primary="Início" />
+              </ListItem>
+              <Divider />
               <ListItem button onClick={routesThunks.novasCapturas}>
                 <ListItemIcon>
                   <AddAPhoto />

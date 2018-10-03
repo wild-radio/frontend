@@ -34,19 +34,18 @@ const AppBar = props => {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <AppBarMU position="static">
+      <AppBarMU position="fixed">
         <Toolbar>
           <IconButton
             className={classes.menuButton}
             color="inherit"
-            aria-label="Menu"
             onClick={props.appActions.openDrawer}>
             <Menu />
           </IconButton>
           <Typography variant="title" color="inherit" className={classes.grow}>
             WildRadio
           </Typography>
-          <Button variant="extendedFab" aria-label="Delete" className={classes.button}>
+          <Button variant="extendedFab" className={classes.button}>
             <Adjust className={classes.extendedIcon} />
             Câmera
           </Button>

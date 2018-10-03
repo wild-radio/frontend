@@ -9,3 +9,15 @@ export const closeDrawer = () => ({
 export const togglePopover = () => ({
   type: 'app/popover/toggle',
 });
+
+export const hideSnackbar = () => ({
+  type: 'app/snackbar/hide',
+});
+
+export const showSnackbar = (message = '', type) => ({
+  type: 'app/snackbar/show',
+  payload: {
+    message,
+    type,
+  },
+});

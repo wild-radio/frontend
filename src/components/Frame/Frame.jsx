@@ -3,8 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Material UI
-import { withStyles } from '@material-ui/core/styles';
-import { Button, Typography, Toolbar, Paper } from '@material-ui/core';
+import { withStyles, Button, Typography, Toolbar, Paper } from '@material-ui/core';
 
 // Tema
 import theme from '../App/theme';
@@ -15,7 +14,7 @@ const styles = {
   },
   paper: {
     maxWidth: 1024,
-    minHeight: 768,
+    minHeight: 500,
     margin: '80px auto 0 auto',
   },
   title: {

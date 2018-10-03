@@ -3,8 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Material UI
-import { withStyles } from '@material-ui/core/styles';
-import { Button, AppBar as AppBarMU, Toolbar, Typography, IconButton } from '@material-ui/core';
+import {
+  withStyles,
+  Button,
+  AppBar as AppBarMU,
+  Toolbar,
+  Typography,
+  IconButton,
+} from '@material-ui/core';
 import { Menu, Adjust } from '@material-ui/icons';
 
 const styles = {

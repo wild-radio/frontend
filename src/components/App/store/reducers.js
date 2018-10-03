@@ -9,6 +9,7 @@ export default (state = initialState, action) => {
           open: true,
         },
       });
+
     case 'app/drawer/close':
       return Object.assign({}, state, {
         ...state,
@@ -16,6 +17,7 @@ export default (state = initialState, action) => {
           open: false,
         },
       });
+
     case 'app/popover/toggle':
       return Object.assign({}, state, {
         ...state,
@@ -23,6 +25,19 @@ export default (state = initialState, action) => {
           open: !state.popover.open,
         },
       });
+
+    case 'app/snackbar/hide':
+      return Object.assign({}, state, {
+        ...state,
+        snackbar: { ...state.snackbar, open: false },
+      });
+
+    case 'app/snackbar/show':
+      return Object.assign({}, state, {
+        ...state,
+        snackbar: { ...action.payload, open: true },
+      });
+
     default:
       return state;
   }

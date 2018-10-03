@@ -5,4 +5,9 @@ export default {
   popover: {
     open: false,
   },
+  snackbar: {
+    open: false,
+    type: null,
+    message: '',
+  },
 };

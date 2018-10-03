@@ -3,8 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Material UI
-import { withStyles } from '@material-ui/core/styles';
-import { Popover as PopoverMU } from '@material-ui/core';
+import { withStyles, Popover as PopoverMU } from '@material-ui/core';
 
 const styles = {
   popover: {

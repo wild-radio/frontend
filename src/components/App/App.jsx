@@ -2,7 +2,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
 
 // Material UI
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';

@@ -14,6 +14,7 @@ import * as routesThunks from '../Routes/store/thunks';
 // Componentes internos
 import AppBar from './AppBar';
 import Drawer from './Drawer';
+import Popover from './Popover';
 import Routes from '../Routes/Routes';
 
 // Tema
@@ -25,6 +26,7 @@ const App = props => {
       <CssBaseline>
         <AppBar {...props} />
         <Drawer {...props} />
+        <Popover {...props} />
         <Routes />
       </CssBaseline>
     </MuiThemeProvider>
@@ -32,7 +34,7 @@ const App = props => {
 };
 
 const mapStateToProps: Function = state => ({
-  drawer: state.app.drawer,
+  ...state.app,
 });
 
 const mapDispatchToProps: Function = dispatch => ({

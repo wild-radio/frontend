@@ -45,7 +45,11 @@ const AppBar = props => {
           <Typography variant="title" color="inherit" className={classes.grow}>
             WildRadio
           </Typography>
-          <Button variant="extendedFab" className={classes.button}>
+          <Button
+            variant="extendedFab"
+            className={classes.button}
+            onClick={props.appActions.togglePopover}
+            id="popover-button">
             <Adjust className={classes.extendedIcon} />
             Câmera
           </Button>

@@ -16,6 +16,13 @@ export default (state = initialState, action) => {
           open: false,
         },
       });
+    case 'app/popover/toggle':
+      return Object.assign({}, state, {
+        ...state,
+        popover: {
+          open: !state.popover.open,
+        },
+      });
     default:
       return state;
   }

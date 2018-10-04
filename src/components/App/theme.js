@@ -21,5 +21,11 @@ export default {
       disabled: 'rgba(0, 0, 0, 0.38)',
       hint: 'rgba(0, 0, 0, 0.38)',
     },
+    snackbar: {
+      success: '#0baf0b',
+      error: '#e42626',
+      info: '#3084da',
+      warn: '#c7aa1b',
+    },
   },
 };

@@ -5,10 +5,7 @@ import PropTypes from 'prop-types';
 // Material UI
 import { withStyles, Button, Typography, Toolbar, Paper } from '@material-ui/core';
 
-// Tema
-import theme from '../App/theme';
-
-const styles = {
+const styles = theme => ({
   toolbar: {
     background: theme.palette.primary.dark,
   },
@@ -31,7 +28,7 @@ const styles = {
     color: theme.palette.common.white,
     borderColor: theme.palette.common.white,
   },
-};
+});
 
 const Frame = props => (
   <Paper className={props.classes.paper}>

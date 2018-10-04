@@ -6,38 +6,32 @@ import PropTypes from 'prop-types';
 import { withStyles, IconButton, Snackbar as SnackbarMU, SnackbarContent } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 
-const styles = {
-  snackbar: {
+const styles = theme => ({
+  success: {
     marginBottom: 16,
+    background: theme.palette.snackbar.success,
   },
-};
+  error: {
+    marginBottom: 16,
+    background: theme.palette.snackbar.error,
+  },
+  info: {
+    marginBottom: 16,
+    background: theme.palette.snackbar.info,
+  },
+  warn: {
+    marginBottom: 16,
+    background: theme.palette.snackbar.warn,
+  },
+});
 
 const Snackbar = props => {
-  let background;
-  switch (props.snackbar.type) {
-    case 'success':
-      background = '#0baf0b';
-      break;
-    case 'error':
-      background = '#e42626';
-      break;
-    case 'info':
-      background = '#3084da';
-      break;
-    case 'warn':
-      background = '#e6c62a';
-      break;
-    default:
-      break;
-  }
-
   return (
     <SnackbarMU
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       open={props.snackbar.open}>
       <SnackbarContent
-        className={props.classes.snackbar}
-        style={{ background }}
+        className={props.classes[props.snackbar.type]}
         message={props.snackbar.message}
         action={[
           <IconButton color="inherit" key={0} onClick={props.appThunks.hideSnackbar}>

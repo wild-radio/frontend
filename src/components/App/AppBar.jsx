@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import { Menu, Adjust } from '@material-ui/icons';
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1,
   },
@@ -26,7 +26,7 @@ const styles = {
   },
   button: {
     height: 36,
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.common.white,
   },
   extendedIcon: {
     marginRight: 12,
@@ -34,7 +34,7 @@ const styles = {
     width: 36,
     height: 36,
   },
-};
+});
 
 const AppBar = props => {
   const { classes } = props;

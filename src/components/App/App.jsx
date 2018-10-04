@@ -5,6 +5,7 @@
  */
 // React & Redux
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -24,20 +25,35 @@ import Popover from './Popover';
 import Snackbar from './Snackbar';
 import Routes from '../Routes/Routes';
 
+// Axios
+import axiosInterceptor from '../../utils/axiosInterceptor';
+
 // Tema
 import theme from './theme';
 
-const App = props => (
-  <MuiThemeProvider theme={createMuiTheme(theme)}>
-    <CssBaseline>
-      <AppBar {...props} />
-      <Drawer {...props} />
-      <Popover {...props} />
-      <Snackbar {...props} />
-      <Routes />
-    </CssBaseline>
-  </MuiThemeProvider>
-);
+class App extends React.Component {
+  componentWillMount() {
+    this.props.axiosInterceptor();
+  }
+
+  render() {
+    return (
+      <MuiThemeProvider theme={createMuiTheme(theme)}>
+        <CssBaseline>
+          <AppBar {...this.props} />
+          <Drawer {...this.props} />
+          <Popover {...this.props} />
+          <Snackbar {...this.props} />
+          <Routes />
+        </CssBaseline>
+      </MuiThemeProvider>
+    );
+  }
+}
+
+App.propTypes = {
+  axiosInterceptor: PropTypes.func.isRequired,
+};
 
 const mapStateToProps: Function = state => ({
   ...state.app,
@@ -47,6 +63,7 @@ const mapDispatchToProps: Function = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch),
   appThunks: bindActionCreators(appThunks, dispatch),
   routesThunks: bindActionCreators(routesThunks, dispatch),
+  axiosInterceptor: () => dispatch(axiosInterceptor()),
 });
 
 export default connect(

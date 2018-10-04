@@ -34,6 +34,7 @@ import theme from './theme';
 class App extends React.Component {
   componentWillMount() {
     this.props.axiosInterceptor();
+    this.props.appThunks.loadSistemas();
   }
 
   render() {
@@ -52,6 +53,9 @@ class App extends React.Component {
 }
 
 App.propTypes = {
+  appActions: PropTypes.object.isRequired,
+  appThunks: PropTypes.object.isRequired,
+  routesThunks: PropTypes.object.isRequired,
   axiosInterceptor: PropTypes.func.isRequired,
 };
 

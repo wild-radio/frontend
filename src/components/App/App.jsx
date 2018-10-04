@@ -1,6 +1,7 @@
 /**
  * TODOs:
  *  - Pensar num modo de mostrar a câmera selecionada na aplicação
+ *  - Pensar na tela/modal de cadastro de sistemas
  */
 // React & Redux
 import React from 'react';

@@ -1,7 +1,6 @@
 /**
  * TODOs:
  *  - Implementar troca de câmera selecionada
- *  - Pensar num modo de mostrar a câmera selecionada no ícone (border?)
  */
 // React & Redux
 import React from 'react';
@@ -38,9 +37,22 @@ const styles = theme => ({
     padding: 8,
   },
   camera: { flexGrow: 0, flexShrink: 1 },
-  cameraIcon: { width: 30, height: 30, color: theme.palette.common.white, padding: 'initial' },
+  cameraIconButton: {
+    width: 30,
+    height: 30,
+    color: theme.palette.common.black,
+    padding: 'initial',
+  },
+  cameraIcon: {
+    width: 28,
+    height: 28,
+  },
   cameraAtiva: { background: theme.palette.snackbar.success },
   cameraInativa: { background: theme.palette.snackbar.error },
+  cameraSelecionada: {
+    border: `1px solid ${theme.palette.common.black}`,
+    color: theme.palette.common.white,
+  },
   identificacao: { padding: '0 8px', textAlign: 'center' },
   badge: {
     background: theme.palette.snackbar.info,
@@ -77,19 +89,22 @@ const Sistema = props => {
   const cameras = props.sistema.cameras;
   const cameraPrincipal = cameras.find(camera => !!camera.principal);
   const cameraAlternativa = cameras.find(camera => !camera.principal);
+  const { cameraSelecionada } = props;
+  const cameraPrincipalSelecionada = cameraSelecionada.id === cameraPrincipal.id;
+  const cameraAlternativaSelecionada = cameraSelecionada.id === cameraAlternativa.id;
 
   return (
     <div>
       <div className={props.classes.sistema}>
         <div className={props.classes.camera}>
           <Badge badgeContent={cameraPrincipal.fotosNovas} classes={{ badge: props.classes.badge }}>
-            <Tooltip title="Selecionar">
+            <Tooltip title={cameraPrincipalSelecionada ? 'Selecionada' : 'Selecionar'}>
               <IconButton
-                className={`${props.classes.cameraIcon} ${
+                className={`${props.classes.cameraIconButton} ${
                   props.classes[`camera${cameraPrincipal.ativa ? 'Ativa' : 'Inativa'}`]
-                }`}
+                } ${cameraPrincipalSelecionada && props.classes.cameraSelecionada}`}
                 onClick={() => console.log('TODO: change camera')}>
-                <Camera fontSize="small" />
+                <Camera className={props.classes.cameraIcon} />
               </IconButton>
             </Tooltip>
           </Badge>
@@ -106,13 +121,13 @@ const Sistema = props => {
                 props.classes.badgeAlternativa
               } ${!cameraAlternativa.fotosNovas && props.classes.badgeHidden}`,
             }}>
-            <Tooltip title="Selecionar">
+            <Tooltip title={cameraAlternativaSelecionada ? 'Selecionada' : 'Selecionar'}>
               <IconButton
-                className={`${props.classes.cameraIcon} ${
+                className={`${props.classes.cameraIconButton} ${
                   props.classes[`camera${cameraAlternativa.ativa ? 'Ativa' : 'Inativa'}`]
-                }`}
+                } ${cameraAlternativaSelecionada && props.classes.cameraSelecionada}`}
                 onClick={() => console.log('TODO: change camera')}>
-                <Camera fontSize="small" />
+                <Camera className={props.classes.cameraIcon} />
               </IconButton>
             </Tooltip>
           </Badge>
@@ -125,6 +140,7 @@ const Sistema = props => {
 
 Sistema.propTypes = {
   sistema: PropTypes.object.isRequired,
+  cameraSelecionada: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

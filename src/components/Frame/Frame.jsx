@@ -15,7 +15,7 @@ const styles = {
   paper: {
     maxWidth: 1024,
     minHeight: 500,
-    margin: '80px auto 0 auto',
+    margin: '80px auto 16px auto',
   },
   title: {
     flexGrow: 1,

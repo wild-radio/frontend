@@ -14,6 +14,7 @@ import {
   Badge,
   Divider,
   IconButton,
+  Tooltip,
   Typography,
 } from '@material-ui/core';
 import { Camera } from '@material-ui/icons';
@@ -57,9 +58,11 @@ const Header = props => (
       <div className={props.classes.camera}>
         <Typography variant="caption">principal</Typography>
       </div>
-      <div className={props.classes.identificacao} />
+      <div className={props.classes.identificacao}>
+        <Typography variant="caption">SELECIONAR CÂMERA</Typography>
+      </div>
       <div className={props.classes.camera}>
-        <Typography variant="caption">alternativo</Typography>
+        <Typography variant="caption">alternativa</Typography>
       </div>
     </div>
     <Divider />
@@ -80,13 +83,15 @@ const Sistema = props => {
       <div className={props.classes.sistema}>
         <div className={props.classes.camera}>
           <Badge badgeContent={cameraPrincipal.fotosNovas} classes={{ badge: props.classes.badge }}>
-            <IconButton
-              className={`${props.classes.cameraIcon} ${
-                props.classes[`camera${cameraPrincipal.ativa ? 'Ativa' : 'Inativa'}`]
-              }`}
-              onClick={() => console.log('TODO: change camera')}>
-              <Camera fontSize="small" />
-            </IconButton>
+            <Tooltip title="Selecionar">
+              <IconButton
+                className={`${props.classes.cameraIcon} ${
+                  props.classes[`camera${cameraPrincipal.ativa ? 'Ativa' : 'Inativa'}`]
+                }`}
+                onClick={() => console.log('TODO: change camera')}>
+                <Camera fontSize="small" />
+              </IconButton>
+            </Tooltip>
           </Badge>
         </div>
         <div className={props.classes.identificacao}>
@@ -101,13 +106,15 @@ const Sistema = props => {
                 props.classes.badgeAlternativa
               } ${!cameraAlternativa.fotosNovas && props.classes.badgeHidden}`,
             }}>
-            <IconButton
-              className={`${props.classes.cameraIcon} ${
-                props.classes[`camera${cameraAlternativa.ativa ? 'Ativa' : 'Inativa'}`]
-              }`}
-              onClick={() => console.log('TODO: change camera')}>
-              <Camera fontSize="small" />
-            </IconButton>
+            <Tooltip title="Selecionar">
+              <IconButton
+                className={`${props.classes.cameraIcon} ${
+                  props.classes[`camera${cameraAlternativa.ativa ? 'Ativa' : 'Inativa'}`]
+                }`}
+                onClick={() => console.log('TODO: change camera')}>
+                <Camera fontSize="small" />
+              </IconButton>
+            </Tooltip>
           </Badge>
         </div>
       </div>

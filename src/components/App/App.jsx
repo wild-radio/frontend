@@ -1,3 +1,8 @@
+/**
+ * TODOs:
+ *  - Implementar carregamento inicial de sistemas
+ *  - Implementar store para câmera selecionada
+ */
 // React & Redux
 import React from 'react';
 import { bindActionCreators } from 'redux';

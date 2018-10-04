@@ -38,6 +38,18 @@ export default (state = initialState, action) => {
         snackbar: { ...action.payload, open: true },
       });
 
+    case 'app/camera/change':
+      return Object.assign({}, state, {
+        ...state,
+        cameraSelecionada: action.payload,
+      });
+
+    case 'app/sistemas/set':
+      return Object.assign({}, state, {
+        ...state,
+        sistemas: action.payload,
+      });
+
     default:
       return state;
   }

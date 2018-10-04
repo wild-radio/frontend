@@ -10,4 +10,6 @@ export default {
     type: null,
     message: '',
   },
+  cameraSelecionada: null,
+  sistemas: [],
 };

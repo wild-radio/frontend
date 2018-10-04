@@ -21,3 +21,7 @@ export const showSnackbar = (message = '', type) => ({
     type,
   },
 });
+
+export const changeCamera = camera => ({ type: 'app/camera/change', payload: camera });
+
+export const setSistemas = sistemas => ({ type: 'app/sistemas/set', payload: sistemas });

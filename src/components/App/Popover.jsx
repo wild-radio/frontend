@@ -71,7 +71,9 @@ const Header = props => (
         <Typography variant="caption">principal</Typography>
       </div>
       <div className={props.classes.identificacao}>
-        <Typography variant="caption">SELECIONAR CÂMERA</Typography>
+        <Typography variant="caption">
+          <strong>SELECIONAR CÂMERA</strong>
+        </Typography>
       </div>
       <div className={props.classes.camera}>
         <Typography variant="caption">alternativa</Typography>
@@ -103,7 +105,7 @@ const Sistema = props => {
                 className={`${props.classes.cameraIconButton} ${
                   props.classes[`camera${cameraPrincipal.ativa ? 'Ativa' : 'Inativa'}`]
                 } ${cameraPrincipalSelecionada && props.classes.cameraSelecionada}`}
-                onClick={() => console.log('TODO: change camera')}>
+                onClick={() => props.appThunks.changeCamera(cameraPrincipal)}>
                 <Camera className={props.classes.cameraIcon} />
               </IconButton>
             </Tooltip>
@@ -126,7 +128,7 @@ const Sistema = props => {
                 className={`${props.classes.cameraIconButton} ${
                   props.classes[`camera${cameraAlternativa.ativa ? 'Ativa' : 'Inativa'}`]
                 } ${cameraAlternativaSelecionada && props.classes.cameraSelecionada}`}
-                onClick={() => console.log('TODO: change camera')}>
+                onClick={() => props.appThunks.changeCamera(cameraAlternativa)}>
                 <Camera className={props.classes.cameraIcon} />
               </IconButton>
             </Tooltip>
@@ -141,6 +143,7 @@ const Sistema = props => {
 Sistema.propTypes = {
   sistema: PropTypes.object.isRequired,
   cameraSelecionada: PropTypes.object.isRequired,
+  appThunks: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -175,6 +178,7 @@ Popover.propTypes = {
   popover: PropTypes.object.isRequired,
   sistemas: PropTypes.array.isRequired,
   appActions: PropTypes.object.isRequired,
+  appThunks: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

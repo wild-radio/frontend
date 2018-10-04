@@ -1,7 +1,6 @@
 /**
  * TODOs:
- *  - Implementar carregamento inicial de sistemas
- *  - Implementar store para câmera selecionada
+ *  - Pensar num modo de mostrar a câmera selecionada na aplicação
  */
 // React & Redux
 import React from 'react';

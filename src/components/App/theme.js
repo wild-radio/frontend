@@ -1,6 +1,6 @@
 export default {
   palette: {
-    common: { black: '#000', white: '#fff' },
+    common: { black: '#000', white: '#fff', lightGray: '#eee' },
     background: { paper: '#fff', default: '#eee' },
     primary: {
       light: '#4ebaaa',

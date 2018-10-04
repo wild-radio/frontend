@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 // Material UI
 import {
   withStyles,
-  Button,
   AppBar as AppBarMU,
   Toolbar,
+  Tooltip,
   Typography,
   IconButton,
 } from '@material-ui/core';
@@ -24,13 +24,12 @@ const styles = theme => ({
     marginLeft: -12,
     marginRight: 20,
   },
-  button: {
+  cameraSelectButton: {
+    padding: 0,
     height: 36,
     backgroundColor: theme.palette.common.white,
   },
   extendedIcon: {
-    marginRight: 12,
-    marginLeft: -12,
     width: 36,
     height: 36,
   },
@@ -42,23 +41,25 @@ const AppBar = props => {
     <div className={classes.root}>
       <AppBarMU position="fixed">
         <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            onClick={props.appActions.openDrawer}>
-            <Menu />
-          </IconButton>
+          <Tooltip title="Menu">
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              onClick={props.appActions.openDrawer}>
+              <Menu />
+            </IconButton>
+          </Tooltip>
           <Typography variant="title" color="inherit" className={classes.grow}>
             WildRadio
           </Typography>
-          <Button
-            variant="extendedFab"
-            className={classes.button}
-            onClick={props.appActions.togglePopover}
-            id="popover-button">
-            <Adjust className={classes.extendedIcon} />
-            Câmera
-          </Button>
+          <Tooltip title="Selecionar câmera">
+            <IconButton
+              className={classes.cameraSelectButton}
+              onClick={props.appActions.togglePopover}
+              id="popover-button">
+              <Adjust className={classes.extendedIcon} />
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBarMU>
     </div>

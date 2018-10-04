@@ -1,3 +1,8 @@
+/**
+ * TODOs:
+ *  - Pensar o que pode ser colocado nesta tela
+ *  - Implementar
+ */
 // React & Redux
 import React from 'react';
 

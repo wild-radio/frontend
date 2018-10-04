@@ -1,3 +1,12 @@
+/**
+ * TODOs:
+ *  - Carregamento das informações do backend
+ *  - Subtítulo com contagem de catálogos e botão de adicionar
+ *  - Modal de novo catálogo
+ *  - Modal de transferência de catálogo
+ *  - Modal de confirmação de exclusão de catálogo
+ *  - Tela de visualização de catálogo
+ */
 // React & Redux
 import React from 'react';
 

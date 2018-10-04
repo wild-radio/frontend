@@ -1,3 +1,10 @@
+/**
+ * TODOs:
+ *  - Implementar formulário
+ *  - Carregamento das informações do backend
+ *  - Envio das alterações nas configurações
+ *  - Modal de espera de confirmação do ângulo (WebSockets)
+ */
 // React & Redux
 import React from 'react';
 import { Field } from 'redux-form';

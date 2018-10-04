@@ -1,3 +1,9 @@
+/**
+ * TODOs:
+ *  - Carregamento das informações do backend
+ *  - Subtítulo com contagens de novas fotos
+ *  - Realização das chamadas para descartar e catalogar
+ */
 // React & Redux
 import React from 'react';
 
@@ -29,7 +35,7 @@ export default () => (
             </IconButton>
           </Tooltip>
         }
-    />
+      />
     </ImageCardList>
   </Frame>
 );

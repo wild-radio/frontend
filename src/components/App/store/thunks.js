@@ -16,11 +16,31 @@ export const showSnackbar = (message = '', type) => dispatch => {
   setTimeout(() => dispatch(actions.hideSnackbar()), SNACKBAR_TIMEOUT);
 };
 
-export const changeCamera = camera => dispatch => {
+export const changeCamera = camera => (dispatch, getState) => {
+  const {
+    app: { sistemas },
+  } = getState();
+
+  const sistema = sistemas.find(sistema => sistema.id === camera.idSistema);
+  const cameraIdentificacao = {
+    ...camera,
+    identificacao: {
+      sistema: sistema.identificacao,
+      principal: camera.principal ? 'principal' : 'alternativa',
+    },
+  };
+
   dispatch(actions.togglePopover());
-  dispatch(actions.changeCamera(camera));
+  dispatch(actions.changeCamera(cameraIdentificacao));
   dispatch(routesThunks.inicio());
-  dispatch(showSnackbar('Câmera alternada', 'info'));
+  dispatch(
+    showSnackbar(
+      `Câmera ${cameraIdentificacao.identificacao.principal} do sistema ${
+        cameraIdentificacao.identificacao.sistema
+      } selecionada`,
+      'info',
+    ),
+  );
 };
 
 export const loadSistemas = () => dispatch => {

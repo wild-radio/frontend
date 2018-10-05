@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {
   withStyles,
   AppBar as AppBarMU,
+  Button,
   Toolbar,
   Tooltip,
   Typography,
@@ -27,8 +28,11 @@ const styles = theme => ({
   cameraSelectButton: {
     padding: 0,
     height: 36,
+    minWidth: 0,
     backgroundColor: theme.palette.common.white,
+    color: theme.palette.common.black,
   },
+  cameraSelectText: { padding: '0 8px 0 16px', textAlign: 'center' },
   extendedIcon: {
     width: 36,
     height: 36,
@@ -53,12 +57,21 @@ const AppBar = props => {
             WildRadio
           </Typography>
           <Tooltip title="Selecionar câmera">
-            <IconButton
+            <Button
+              variant="extendedFab"
               className={classes.cameraSelectButton}
               onClick={props.appActions.togglePopover}
               id="popover-button">
+              {props.cameraSelecionada.id && (
+                <div className={classes.cameraSelectText}>
+                  <Typography>{props.cameraSelecionada.identificacao.sistema}</Typography>
+                  <Typography variant="caption">
+                    {props.cameraSelecionada.identificacao.principal}
+                  </Typography>
+                </div>
+              )}
               <Adjust className={classes.extendedIcon} />
-            </IconButton>
+            </Button>
           </Tooltip>
         </Toolbar>
       </AppBarMU>
@@ -67,8 +80,9 @@ const AppBar = props => {
 };
 
 AppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
   appActions: PropTypes.object.isRequired,
+  cameraSelecionada: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(AppBar);

@@ -95,7 +95,12 @@ const Sistema = props => {
     <div>
       <div className={props.classes.sistema}>
         <div className={props.classes.camera}>
-          <Badge badgeContent={cameraPrincipal.fotosNovas} classes={{ badge: props.classes.badge }}>
+          <Badge
+            badgeContent={cameraPrincipal.fotosNovas}
+            classes={{
+              badge: `${props.classes.badge} ${!cameraPrincipal.fotosNovas &&
+                props.classes.badgeHidden}`,
+            }}>
             <Tooltip title={cameraPrincipalSelecionada ? 'Selecionada' : 'Selecionar'}>
               <IconButton
                 className={`${props.classes.cameraIconButton} ${

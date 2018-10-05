@@ -60,7 +60,7 @@ const AppBar = props => {
             <Button
               variant="extendedFab"
               className={classes.cameraSelectButton}
-              onClick={props.appActions.togglePopover}
+              onClick={props.appActions.openPopover}
               id="popover-button">
               {props.cameraSelecionada.id && (
                 <div className={classes.cameraSelectText}>

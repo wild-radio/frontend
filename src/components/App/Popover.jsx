@@ -153,7 +153,7 @@ const Popover = props => {
   return (
     <PopoverMU
       open={props.popover.open}
-      onClose={props.appActions.togglePopover}
+      onClose={props.appActions.closePopover}
       anchorEl={anchorEl}
       anchorOrigin={{
         vertical: 'bottom',

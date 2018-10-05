@@ -30,7 +30,7 @@ export const changeCamera = camera => (dispatch, getState) => {
     },
   };
 
-  dispatch(actions.togglePopover());
+  dispatch(actions.closePopover());
   dispatch(actions.changeCamera(cameraIdentificacao));
   dispatch(routesThunks.inicio());
   dispatch(

@@ -6,8 +6,12 @@ export const closeDrawer = () => ({
   type: 'app/drawer/close',
 });
 
-export const togglePopover = () => ({
-  type: 'app/popover/toggle',
+export const openPopover = () => ({
+  type: 'app/popover/open',
+});
+
+export const closePopover = () => ({
+  type: 'app/popover/close',
 });
 
 export const hideSnackbar = () => ({

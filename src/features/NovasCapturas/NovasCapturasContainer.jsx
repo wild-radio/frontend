@@ -1,8 +1,6 @@
 /**
  * TODOs:
- *  - Modal de seleção de catálogo
- *  - Modal de confirmação de descarte
- *  - Realização das chamadas para descartar e catalogar
+ *  - Carregamento dos catálogos
  */
 // React & Redux
 import React from 'react';

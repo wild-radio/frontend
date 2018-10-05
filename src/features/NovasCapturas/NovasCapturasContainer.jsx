@@ -1,41 +1,33 @@
 /**
  * TODOs:
- *  - Carregamento das informações do backend
  *  - Subtítulo com contagens de novas fotos
+ *  - Modal de seleção de catálogo
  *  - Realização das chamadas para descartar e catalogar
  */
 // React & Redux
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-// Material UI
-import { IconButton, Tooltip } from '@material-ui/core';
-import { Check, Close } from '@material-ui/icons';
+// Thunks & actions
+import * as thunks from './store/thunks';
+import * as appThunks from '../../components/App/store/thunks';
 
-// Componentes internos
-import Frame from '../../components/Frame/Frame';
-import ImageCardList from '../../components/ImageCard/ImageCardList';
-import ImageCard from '../../components/ImageCard/ImageCard';
+// Componente filho
+import NovasCapturas from './NovasCapturas';
 
-export default () => (
-  <Frame title="Novas capturas">
-    <ImageCardList>
-      <ImageCard
-        title="Há 30 segundos"
-        leftButton={
-          <Tooltip title="Descartar">
-            <IconButton>
-              <Close color="error" />
-            </IconButton>
-          </Tooltip>
-        }
-        rightButton={
-          <Tooltip title="Catalogar">
-            <IconButton>
-              <Check color="primary" />
-            </IconButton>
-          </Tooltip>
-        }
-      />
-    </ImageCardList>
-  </Frame>
-);
+const NovasCapturasContainer = props => <NovasCapturas {...props} />;
+
+const mapStateToProps: Function = state => ({
+  ...state.novasCapturas,
+});
+
+const mapDispatchToProps: Function = dispatch => ({
+  thunks: bindActionCreators(thunks, dispatch),
+  appThunks: bindActionCreators(appThunks, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NovasCapturasContainer);

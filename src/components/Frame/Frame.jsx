@@ -37,10 +37,7 @@ const Frame = props => (
         {props.title}
       </Typography>
       {props.secondaryButton && (
-        <Button
-          variant="outlined"
-          className={props.classes.secondaryButton}
-          onClick={props.onClickSecondaryButton}>
+        <Button className={props.classes.secondaryButton} onClick={props.onClickSecondaryButton}>
           {props.secondaryButton}
         </Button>
       )}

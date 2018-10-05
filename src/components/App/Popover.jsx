@@ -1,7 +1,3 @@
-/**
- * TODOs:
- *  - Implementar troca de câmera selecionada
- */
 // React & Redux
 import React from 'react';
 import PropTypes from 'prop-types';

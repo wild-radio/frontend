@@ -1,7 +1,7 @@
 /**
  * TODOs:
- *  - Subtítulo com contagens de novas fotos
  *  - Modal de seleção de catálogo
+ *  - Modal de confirmação de descarte
  *  - Realização das chamadas para descartar e catalogar
  */
 // React & Redux

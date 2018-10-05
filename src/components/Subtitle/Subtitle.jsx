@@ -5,22 +5,27 @@ import PropTypes from 'prop-types';
 // Material UI
 import { withStyles, Typography, Divider } from '@material-ui/core';
 
-const styles = {
+const styles = theme => ({
   container: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 16,
   },
+  subtitle: {
+    color: theme.palette.text.secondary,
+  },
   divider: {
     marginBottom: 16,
   },
-};
+});
 
 const Subtitle = props => (
   <div>
     <div className={props.classes.container}>
-      <Typography variant="headline">{props.children}</Typography>
+      <Typography variant="subheading" className={props.classes.subtitle}>
+        {props.children}
+      </Typography>
       {props.action}
     </div>
     <Divider className={props.classes.divider} />

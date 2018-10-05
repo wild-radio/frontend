@@ -5,7 +5,7 @@ export default () => dispatch => {
   axios.interceptors.response.use(
     response => response,
     error => {
-      if (error.response.data) {
+      if (error && error.responde && error.response.data) {
         dispatch(appThunks.showSnackbar(error.response.data, 'error'));
       } else {
         dispatch(appThunks.showSnackbar('Erro interno', 'error'));

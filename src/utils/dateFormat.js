@@ -1,4 +1,6 @@
-export const dateFormat = date => {
+export const dateFormat = timestamp => {
+  const date = new Date(timestamp * 1000);
+
   let dia = date.getDate();
   if (dia.toString().length === 1) {
     dia = `0${dia}`;
@@ -14,7 +16,9 @@ export const dateFormat = date => {
   return `${dia}/${mes}/${ano}`;
 };
 
-export const hourFormat = date => {
+export const hourFormat = timestamp => {
+  const date = new Date(timestamp * 1000);
+
   let hora = date.getHours();
   if (hora.toString().length === 1) {
     hora = `0${hora}`;
@@ -33,4 +37,4 @@ export const hourFormat = date => {
   return `${hora}:${minuto}:${segundo}`;
 };
 
-export const dateHourFormat = date => `${dateFormat(date)} ${hourFormat(date)}`;
+export const dateHourFormat = timestamp => `${dateFormat(timestamp)} ${hourFormat(timestamp)}`;

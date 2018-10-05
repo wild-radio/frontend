@@ -27,6 +27,7 @@ class NovasCapturas extends React.Component {
         <ImageCardList>
           {this.props.fotos.map(foto => (
             <ImageCard
+              key={foto.id}
               title={dateFormat(new Date(foto.dataHoraCaptura * 1000))}
               subtitle={hourFormat(new Date(foto.dataHoraCaptura * 1000))}
               image={foto.conteudo}

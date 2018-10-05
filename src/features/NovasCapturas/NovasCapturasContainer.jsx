@@ -18,6 +18,7 @@ const NovasCapturasContainer = props => <NovasCapturas {...props} />;
 
 const mapStateToProps: Function = state => ({
   ...state.novasCapturas,
+  ...state.catalogos,
 });
 
 const mapDispatchToProps: Function = dispatch => ({

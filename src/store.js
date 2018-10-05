@@ -11,6 +11,7 @@ import { createBrowserHistory } from 'history';
 // Reducers da aplicação
 import app from './components/App/store/reducers';
 import novasCapturas from './features/NovasCapturas/store/reducers';
+import catalogos from './features/Catalogos/store/reducers';
 
 export const history = createBrowserHistory();
 
@@ -19,6 +20,7 @@ const middlewares = [thunk, routerMiddleware(history)];
 const rootReducer = combineReducers({
   app,
   novasCapturas,
+  catalogos,
   form: reduxFormReducer,
 });
 

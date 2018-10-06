@@ -9,12 +9,13 @@ import * as appThunks from '../../../components/App/store/thunks';
 import * as routesThunks from '../../../components/Routes/store/thunks';
 
 // Componente filho
-import CatalogosList from './CatalogosList';
+import CatalogoView from './CatalogoView';
 
-const CatalogosListContainer = props => <CatalogosList {...props} />;
+const CatalogoViewContainer = props => <CatalogoView {...props} />;
 
 const mapStateToProps: Function = state => ({
-  catalogos: state.catalogos,
+  catalogos: state.catalogos.list,
+  fotos: state.catalogos.fotos,
 });
 
 const mapDispatchToProps: Function = dispatch => ({
@@ -26,4 +27,4 @@ const mapDispatchToProps: Function = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CatalogosListContainer);
+)(CatalogoViewContainer);

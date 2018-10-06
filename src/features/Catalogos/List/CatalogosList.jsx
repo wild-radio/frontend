@@ -141,14 +141,23 @@ class Catalogos extends React.Component {
                   Novo
                 </Button>
               }>
-              Existe
-              {fotosPlural && 'm'} {quantidadeFotos} foto
-              {fotosPlural && 's'} em {quantidadeCatalogos} catálogo
-              {catalogosPlural && 's'}
+              {quantidadeFotos === 0
+                ? 'Nenhuma foto'
+                : `Existe
+              ${fotosPlural ? 'm' : ''} ${quantidadeFotos} foto
+              ${fotosPlural ? 's' : ''}`}
+              {` em ${quantidadeCatalogos} catálogo${catalogosPlural ? 's' : ''}`}
             </Subtitle>
           )}
           {nenhumCatalogo ? (
-            <Empty>Nenhum catálogo</Empty>
+            <Empty
+              action={
+                <Button variant="contained" color="secondary" onClick={this.openModalCadastrar}>
+                  Adicionar
+                </Button>
+              }>
+              Nenhum catálogo
+            </Empty>
           ) : (
             <ImageCardList>
               {catalogos.map(catalogo => (
@@ -157,8 +166,7 @@ class Catalogos extends React.Component {
                   catalogo={catalogo}
                   openModalRemover={this.openModalRemover}
                   openModalTransferir={this.openModalTransferir}
-                  // TODO: implementação
-                  handleVisualizar={() => console.log('TODO: visualizar catálogo')}
+                  handleVisualizar={() => this.props.routesThunks.catalogo(catalogo.id)}
                 />
               ))}
             </ImageCardList>
@@ -225,6 +233,7 @@ class Catalogos extends React.Component {
 Catalogos.propTypes = {
   thunks: PropTypes.object.isRequired,
   appThunks: PropTypes.object.isRequired,
+  routesThunks: PropTypes.object.isRequired,
   catalogos: PropTypes.object.isRequired,
 };
 

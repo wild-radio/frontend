@@ -6,6 +6,7 @@ import { Route, Switch } from 'react-router';
 import InicioContainer from '../../features/Inicio/InicioContainer';
 import NovasCapturasContainer from '../../features/NovasCapturas/NovasCapturasContainer';
 import CatalogosListContainer from '../../features/Catalogos/List/CatalogosListContainer';
+import CatalogoViewContainer from '../../features/Catalogos/View/CatalogoViewContainer';
 import ConfiguracoesContainer from '../../features/Configuracoes/ConfiguracoesContainer';
 
 export default () => (
@@ -13,11 +14,8 @@ export default () => (
     <Switch>
       <Route exact path="/" component={InicioContainer} />
       <Route exact path="/novas-capturas" component={NovasCapturasContainer} />
-      <Switch>
-        <Route exact path="/catalogos" component={CatalogosListContainer} />
-        {/* TODO */}
-        <Route path="/catalogos/:idCatalogo" component={CatalogosListContainer} />
-      </Switch>
+      <Route exact path="/catalogos" component={CatalogosListContainer} />
+      <Route exact path="/catalogos/:idCatalogo" component={CatalogoViewContainer} />
       <Route exact path="/configuracoes" component={ConfiguracoesContainer} />
     </Switch>
   </div>

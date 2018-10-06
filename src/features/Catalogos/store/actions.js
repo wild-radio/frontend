@@ -5,5 +5,5 @@ export const setCatalogos = catalogos => ({
 
 export const setFotosCatalogos = fotos => ({
   type: 'catalogos/fotos/set',
-  payload: catalogos,
+  payload: fotos,
 });

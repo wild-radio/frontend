@@ -69,6 +69,7 @@ class NovasCapturas extends React.Component {
   componentWillMount() {
     cameraSelecionadaCheck();
     this.props.thunks.getFotos();
+    this.props.catalogoThunks.getCatalogos();
   }
 
   openModalDescartar = idFoto => this.setState({ descartar: { open: true, id: idFoto } });
@@ -82,7 +83,9 @@ class NovasCapturas extends React.Component {
   handleCancelDescartar = () => this.setState({ descartar: { open: false, id: 0 } });
 
   openModalCatalogar = idFoto => {
-    // TODO: validar se existe algum catálogo após substituir o mock
+    if (this.props.catalogos.list.length === 0) {
+      return this.props.appThunks.showSnackbar('Nenhum catálogo cadastrado', 'error');
+    }
     this.setState({ catalogar: { open: true, id: idFoto, idCatalogo: 0 } });
   };
 
@@ -102,9 +105,6 @@ class NovasCapturas extends React.Component {
     const quantidadeFotos = fotos.length;
     const nenhumaFoto = quantidadeFotos === 0;
     const plural = quantidadeFotos > 1;
-
-    // TODO: substituir o mock
-    const catalogos = [{ id: 1, nome: 'Teste' }, { id: 1000, nome: 'Aham' }];
 
     return (
       <div>
@@ -155,7 +155,7 @@ class NovasCapturas extends React.Component {
             onChange={(event, value) =>
               this.setState({ catalogar: { ...this.state.catalogar, idCatalogo: value } })
             }>
-            {catalogos.map(option => (
+            {this.props.catalogos.list.map(option => (
               <FormControlLabel
                 value={`${option.id}`}
                 key={option.id}
@@ -172,7 +172,10 @@ class NovasCapturas extends React.Component {
 
 NovasCapturas.propTypes = {
   thunks: PropTypes.object.isRequired,
+  appThunks: PropTypes.object.isRequired,
+  catalogoThunks: PropTypes.object.isRequired,
   fotos: PropTypes.array.isRequired,
+  catalogos: PropTypes.object.isRequired,
 };
 
 export default NovasCapturas;

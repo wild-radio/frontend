@@ -75,8 +75,8 @@ class NovasCapturas extends React.Component {
   openModalDescartar = idFoto => this.setState({ descartar: { open: true, id: idFoto } });
 
   handleConfirmDescartar = async () => {
-    this.setState({ descartar: { open: false, id: 0 } });
     await this.props.thunks.deleteFoto(this.state.descartar.id);
+    this.setState({ descartar: { open: false, id: 0 } });
     this.props.thunks.getFotos();
   };
 
@@ -90,11 +90,11 @@ class NovasCapturas extends React.Component {
   };
 
   handleConfirmCatalogar = async () => {
-    this.setState({ catalogar: { open: false, id: 0, idCatalogo: 0 } });
     await this.props.thunks.putCatalogoFoto(
       this.state.catalogar.idCatalogo,
       this.state.catalogar.id,
     );
+    this.setState({ catalogar: { open: false, id: 0, idCatalogo: 0 } });
     this.props.thunks.getFotos();
   };
 

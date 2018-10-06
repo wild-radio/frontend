@@ -112,9 +112,9 @@ class NovasCapturas extends React.Component {
           {!nenhumaFoto && (
             <Subtitle>
               Existe
-              {plural && 'm'} {quantidadeFotos} nova
-              {plural && 's'} captura
-              {plural && 's'}
+              {plural ? 'm' : ''} {quantidadeFotos} nova
+              {plural ? 's' : ''} captura
+              {plural ? 's' : ''}
             </Subtitle>
           )}
           {nenhumaFoto ? (

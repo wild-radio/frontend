@@ -143,9 +143,9 @@ class Catalogos extends React.Component {
               }>
               {quantidadeFotos === 0
                 ? 'Nenhuma foto'
-                : `Existe
-              ${fotosPlural ? 'm' : ''} ${quantidadeFotos} foto
-              ${fotosPlural ? 's' : ''}`}
+                : `Existe${fotosPlural ? 'm' : ''} ${quantidadeFotos} foto${
+                    fotosPlural ? 's' : ''
+                  }`}
               {` em ${quantidadeCatalogos} catálogo${catalogosPlural ? 's' : ''}`}
             </Subtitle>
           )}

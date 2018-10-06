@@ -3,7 +3,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Material UI
-import { withStyles, Button, Typography, Toolbar, Paper } from '@material-ui/core';
+import {
+  withStyles,
+  Button,
+  IconButton,
+  Tooltip,
+  Typography,
+  Toolbar,
+  Paper,
+} from '@material-ui/core';
+import { ArrowBack } from '@material-ui/icons';
 
 const styles = theme => ({
   toolbar: {
@@ -28,11 +37,26 @@ const styles = theme => ({
     color: theme.palette.common.white,
     borderColor: theme.palette.common.white,
   },
+  backButton: {
+    color: theme.palette.common.white,
+    marginLeft: -16,
+  },
 });
 
 const Frame = props => (
   <Paper className={props.classes.paper}>
     <Toolbar className={props.classes.toolbar}>
+      {props.enableBackButton && (
+        <Tooltip title="Voltar">
+          <IconButton
+            color="inherit"
+            disableRipple
+            className={props.classes.backButton}
+            onClick={props.onClickBackButton}>
+            <ArrowBack />
+          </IconButton>
+        </Tooltip>
+      )}
       <Typography variant="title" className={props.classes.title}>
         {props.title}
       </Typography>
@@ -63,6 +87,8 @@ Frame.propTypes = {
   onClickPrimaryButton: PropTypes.func,
   secondaryButton: PropTypes.string,
   onClickSecondaryButton: PropTypes.func,
+  enableBackButton: PropTypes.bool,
+  onClickBackButton: PropTypes.func,
 };
 
 Frame.defaultProps = {
@@ -70,6 +96,8 @@ Frame.defaultProps = {
   onClickPrimaryButton: () => {},
   secondaryButton: '',
   onClickSecondaryButton: () => {},
+  enableBackButton: true,
+  onClickBackButton: () => {},
 };
 
 export default withStyles(styles)(Frame);

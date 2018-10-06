@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 // Thunks & actions
 import * as thunks from './store/thunks';
 import * as appThunks from '../../components/App/store/thunks';
+import * as routesThunks from '../../components/Routes/store/thunks';
 import * as catalogoThunks from '../Catalogos/store/thunks';
 
 // Componente filho
@@ -21,6 +22,7 @@ const mapStateToProps: Function = state => ({
 const mapDispatchToProps: Function = dispatch => ({
   thunks: bindActionCreators(thunks, dispatch),
   appThunks: bindActionCreators(appThunks, dispatch),
+  routesThunks: bindActionCreators(routesThunks, dispatch),
   catalogoThunks: bindActionCreators(catalogoThunks, dispatch),
 });
 

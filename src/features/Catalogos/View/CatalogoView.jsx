@@ -86,7 +86,8 @@ class CatalogoView extends React.Component {
         <Frame
           title={this.catalogo.nome || 'Catálogo'}
           secondaryButton="Voltar"
-          onClickSecondaryButton={this.props.routesThunks.catalogos}>
+          onClickSecondaryButton={this.props.routesThunks.catalogos}
+          onClickBackButton={this.props.routesThunks.catalogos}>
           {!nenhumaFoto && (
             <Subtitle>
               Existe

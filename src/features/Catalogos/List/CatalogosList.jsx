@@ -133,7 +133,7 @@ class Catalogos extends React.Component {
 
     return (
       <div>
-        <Frame title="Catálogos">
+        <Frame title="Catálogos" onClickBackButton={this.props.routesThunks.inicio}>
           {!nenhumCatalogo && (
             <Subtitle
               action={

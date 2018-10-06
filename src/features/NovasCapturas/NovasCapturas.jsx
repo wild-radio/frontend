@@ -108,7 +108,7 @@ class NovasCapturas extends React.Component {
 
     return (
       <div>
-        <Frame title="Novas capturas">
+        <Frame title="Novas capturas" onClickBackButton={this.props.routesThunks.inicio}>
           {!nenhumaFoto && (
             <Subtitle>
               Existe
@@ -173,6 +173,7 @@ class NovasCapturas extends React.Component {
 NovasCapturas.propTypes = {
   thunks: PropTypes.object.isRequired,
   appThunks: PropTypes.object.isRequired,
+  routesThunks: PropTypes.object.isRequired,
   catalogoThunks: PropTypes.object.isRequired,
   fotos: PropTypes.array.isRequired,
   catalogos: PropTypes.object.isRequired,

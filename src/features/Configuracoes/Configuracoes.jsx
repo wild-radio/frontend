@@ -16,7 +16,11 @@ import { Switch } from 'redux-form-material-ui';
 import Frame from '../../components/Frame/Frame';
 
 export default props => (
-  <Frame title="Configurações" primaryButton="Salvar" secondaryButton="Descartar">
+  <Frame
+    title="Configurações"
+    primaryButton="Salvar"
+    secondaryButton="Descartar"
+    onClickBackButton={() => console.log('TODO: retornar para início')}>
     <form>
       <Field component={Switch} name="teste" />
     </form>

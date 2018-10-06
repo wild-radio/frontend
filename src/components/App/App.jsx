@@ -8,6 +8,9 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+// Router
+import { withRouter } from 'react-router';
+
 // Material UI
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
@@ -69,7 +72,9 @@ const mapDispatchToProps: Function = dispatch => ({
   axiosInterceptor: () => dispatch(axiosInterceptor()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(App),
+);

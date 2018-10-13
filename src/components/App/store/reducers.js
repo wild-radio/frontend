@@ -47,6 +47,7 @@ export default (state = initialState, action) => {
       });
 
     case 'app/camera/change':
+      window.localStorage.setItem('cameraSelecionada', JSON.stringify(action.payload));
       return Object.assign({}, state, {
         ...state,
         cameraSelecionada: action.payload,

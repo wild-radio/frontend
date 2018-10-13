@@ -38,7 +38,17 @@ class App extends React.Component {
     this.props.axiosInterceptor();
     this.props.appThunks.loadSistemas();
     setInterval(this.props.appThunks.loadSistemas, 10000);
+    this.getCameraSelecionadaFromLocalStorage();
   }
+
+  getCameraSelecionadaFromLocalStorage = () => {
+    const localStorageItem = window.localStorage.getItem('cameraSelecionada');
+    const cameraSelecionada = localStorageItem ? JSON.parse(localStorageItem) : null;
+
+    if (cameraSelecionada) {
+      this.props.appActions.changeCamera(cameraSelecionada);
+    }
+  };
 
   render() {
     return (

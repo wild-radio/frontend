@@ -198,7 +198,10 @@ class Catalogos extends React.Component {
             autoComplete="off"
             onKeyDown={event => {
               if (event.key === 'Enter') {
-                this.handleConfirmCadastrar();
+                event.preventDefault();
+                if (!!this.state.cadastrar.nome) {
+                  this.handleConfirmCadastrar();
+                }
               }
             }}>
             <TextField

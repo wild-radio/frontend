@@ -14,6 +14,9 @@ import {
 } from '@material-ui/core';
 import { Camera } from '@material-ui/icons';
 
+// Utils
+import badgeFormat from '../../utils/badgeFormat';
+
 const styles = theme => ({
   popover: {
     marginTop: 14,
@@ -96,7 +99,7 @@ const Sistema = props => {
       <div className={props.classes.sistema}>
         <div className={props.classes.camera}>
           <Badge
-            badgeContent={cameraPrincipal.fotosNovas}
+            badgeContent={badgeFormat(cameraPrincipal.fotosNovas)}
             classes={{
               badge: `${props.classes.badge} ${!cameraPrincipal.fotosNovas &&
                 props.classes.badgeHidden}`,

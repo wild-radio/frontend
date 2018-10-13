@@ -194,15 +194,22 @@ class Catalogos extends React.Component {
           cancel="Cancelar"
           onClickCancel={this.handleCancelCadastrar}
           open={this.state.cadastrar.open}>
-          <TextField
-            name="nome"
-            value={`${this.state.cadastrar.nome}`}
-            onChange={event =>
-              this.setState({ cadastrar: { ...this.state.cadastrar, nome: event.target.value } })
-            }
+          <form
             autoComplete="off"
-            autoFocus
-          />
+            onKeyDown={event => {
+              if (event.key === 'Enter') {
+                this.handleConfirmCadastrar();
+              }
+            }}>
+            <TextField
+              name="nome"
+              value={`${this.state.cadastrar.nome}`}
+              onChange={event =>
+                this.setState({ cadastrar: { ...this.state.cadastrar, nome: event.target.value } })
+              }
+              autoFocus
+            />
+          </form>
         </Dialog>
         <Dialog
           title="Você tem certeza?"

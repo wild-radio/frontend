@@ -5,15 +5,16 @@ import * as rest from './rest';
 import * as actions from './actions';
 import * as routesThunks from '../../Routes/store/thunks';
 
-const SNACKBAR_TIMEOUT = 4000;
-
-export const hideSnackbar = () => dispatch => {
+export const hideSnackbar = (event, reason) => dispatch => {
+  if (reason === 'clickaway') return;
   dispatch(actions.hideSnackbar());
 };
 
 export const showSnackbar = (message = '', type) => dispatch => {
-  dispatch(actions.showSnackbar(message, type));
-  setTimeout(() => dispatch(actions.hideSnackbar()), SNACKBAR_TIMEOUT);
+  dispatch(actions.hideSnackbar());
+  setTimeout(() => {
+    dispatch(actions.showSnackbar(message, type));
+  }, 500);
 };
 
 export const changeCamera = camera => (dispatch, getState) => {

@@ -29,7 +29,9 @@ const Snackbar = props => {
   return (
     <SnackbarMU
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      open={props.snackbar.open}>
+      open={props.snackbar.open}
+      onClose={props.appThunks.hideSnackbar}
+      autoHideDuration={4000}>
       <SnackbarContent
         className={props.classes[props.snackbar.type]}
         message={props.snackbar.message}

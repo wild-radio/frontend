@@ -12,6 +12,7 @@ import { createBrowserHistory } from 'history';
 import app from './components/App/store/reducers';
 import novasCapturas from './features/NovasCapturas/store/reducers';
 import catalogos from './features/Catalogos/store/reducers';
+import configuracoes from './features/Configuracoes/store/reducers';
 
 export const history = createBrowserHistory();
 
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   app,
   novasCapturas,
   catalogos,
+  configuracoes,
   form: reduxFormReducer,
 });
 

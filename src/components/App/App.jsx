@@ -37,6 +37,7 @@ class App extends React.Component {
   componentWillMount() {
     this.props.axiosInterceptor();
     this.props.appThunks.loadSistemas();
+    setInterval(this.props.appThunks.loadSistemas, 10000);
   }
 
   render() {

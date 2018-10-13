@@ -14,12 +14,12 @@ import NovasCapturas from './NovasCapturas';
 
 const NovasCapturasContainer = props => <NovasCapturas {...props} />;
 
-const mapStateToProps: Function = state => ({
+const mapStateToProps = state => ({
   ...state.novasCapturas,
   catalogos: state.catalogos,
 });
 
-const mapDispatchToProps: Function = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   thunks: bindActionCreators(thunks, dispatch),
   appThunks: bindActionCreators(appThunks, dispatch),
   routesThunks: bindActionCreators(routesThunks, dispatch),

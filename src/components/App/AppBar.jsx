@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {
   withStyles,
   AppBar as AppBarMU,
+  Badge,
   Button,
   Toolbar,
   Tooltip,
@@ -13,6 +14,9 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { Menu, Adjust } from '@material-ui/icons';
+
+// Utils
+import badgeFormat from '../../utils/badgeFormat';
 
 const styles = theme => ({
   root: {
@@ -37,10 +41,25 @@ const styles = theme => ({
     width: 36,
     height: 36,
   },
+  badge: {
+    background: theme.palette.secondary.main,
+    color: theme.palette.common.white,
+    border: `2px solid ${theme.palette.primary.main}`,
+    fontWeight: 'bold',
+  },
+  badgeHidden: { display: 'none' },
 });
 
 const AppBar = props => {
-  const { classes } = props;
+  const { classes, sistemas } = props;
+
+  const totalFotosNovas = badgeFormat(
+    sistemas.reduce(
+      (acc, sistema) => acc + sistema.cameras[0].fotosNovas + sistema.cameras[1].fotosNovas,
+      0,
+    ),
+  );
+
   return (
     <div className={classes.root}>
       <AppBarMU position="fixed">
@@ -57,21 +76,27 @@ const AppBar = props => {
             WildRadio
           </Typography>
           <Tooltip title="Selecionar câmera">
-            <Button
-              variant="extendedFab"
-              className={classes.cameraSelectButton}
-              onClick={props.appActions.openPopover}
-              id="popover-button">
-              {props.cameraSelecionada.id && (
-                <div className={classes.cameraSelectText}>
-                  <Typography>{props.cameraSelecionada.identificacao.sistema}</Typography>
-                  <Typography variant="caption">
-                    {props.cameraSelecionada.identificacao.principal}
-                  </Typography>
-                </div>
-              )}
-              <Adjust className={classes.extendedIcon} />
-            </Button>
+            <Badge
+              badgeContent={totalFotosNovas}
+              classes={{
+                badge: `${props.classes.badge} ${!totalFotosNovas && props.classes.badgeHidden}`,
+              }}>
+              <Button
+                variant="extendedFab"
+                className={classes.cameraSelectButton}
+                onClick={props.appActions.openPopover}
+                id="popover-button">
+                {props.cameraSelecionada.id && (
+                  <div className={classes.cameraSelectText}>
+                    <Typography>{props.cameraSelecionada.identificacao.sistema}</Typography>
+                    <Typography variant="caption">
+                      {props.cameraSelecionada.identificacao.principal}
+                    </Typography>
+                  </div>
+                )}
+                <Adjust className={classes.extendedIcon} />
+              </Button>
+            </Badge>
           </Tooltip>
         </Toolbar>
       </AppBarMU>
@@ -82,6 +107,7 @@ const AppBar = props => {
 AppBar.propTypes = {
   appActions: PropTypes.object.isRequired,
   cameraSelecionada: PropTypes.object.isRequired,
+  sistemas: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

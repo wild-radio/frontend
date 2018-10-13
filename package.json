@@ -15,7 +15,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "serve": "serve -s build -p 3000"
+    "serve": "sudo serve -s build -p 80"
   },
   "dependencies": {
     "@material-ui/core": "^3.1.2",

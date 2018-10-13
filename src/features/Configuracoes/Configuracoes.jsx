@@ -162,7 +162,7 @@ class Configuracoes extends React.Component {
           title="Configurações"
           primaryButton="Salvar"
           onClickPrimaryButton={this.props.handleSubmit(this.onSubmit)}
-          secondaryButton="Descartar"
+          secondaryButton="Voltar"
           onClickBackButton={this.props.routesThunks.inicio}>
           <form>
             <FieldContainer

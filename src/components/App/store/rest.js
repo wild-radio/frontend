@@ -2,6 +2,6 @@
 import axios from 'axios';
 
 // Base URL
-import BASE_URL from '../../../utils/url';
+import { BACK } from '../../../utils/url';
 
-export const getSistemas = () => axios.get(`${BASE_URL}/sistemas`);
+export const getSistemas = () => axios.get(`${BACK}/sistemas`);

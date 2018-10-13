@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 // Material UI
 import {
+  withStyles,
   Button,
   IconButton,
   Typography,
@@ -23,7 +24,13 @@ import ImageCard from '../../../components/ImageCard/ImageCard';
 import Empty from '../../../components/Empty/Empty';
 import Dialog from '../../../components/Dialog/Dialog';
 
-const Catalogo = props => (
+const styles = theme => ({
+  iconButton: {
+    background: theme.palette.common.lightGray,
+  },
+});
+
+const Catalogo = withStyles(styles)(props => (
   <ImageCard
     title={props.catalogo.nome}
     subtitle={
@@ -34,33 +41,40 @@ const Catalogo = props => (
     image={props.catalogo.ultimaFoto}
     leftButton={
       <Tooltip title="Remover">
-        <IconButton onClick={() => props.openModalRemover(props.catalogo.id)}>
+        <IconButton
+          className={props.classes.iconButton}
+          onClick={() => props.openModalRemover(props.catalogo.id)}>
           <Delete />
         </IconButton>
       </Tooltip>
     }
     middleButton={
       <Tooltip title="Transferir">
-        <IconButton onClick={() => props.openModalTransferir(props.catalogo.id)}>
+        <IconButton
+          className={props.classes.iconButton}
+          onClick={() => props.openModalTransferir(props.catalogo.id)}>
           <Eject />
         </IconButton>
       </Tooltip>
     }
     rightButton={
       <Tooltip title="Visualizar">
-        <IconButton onClick={() => props.handleVisualizar(props.catalogo.id)}>
+        <IconButton
+          className={props.classes.iconButton}
+          onClick={() => props.handleVisualizar(props.catalogo.id)}>
           <Visibility />
         </IconButton>
       </Tooltip>
     }
   />
-);
+));
 
 Catalogo.propTypes = {
   catalogo: PropTypes.object.isRequired,
   openModalRemover: PropTypes.func.isRequired,
   openModalTransferir: PropTypes.func.isRequired,
   handleVisualizar: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 class Catalogos extends React.Component {

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 // Material UI
 import {
+  withStyles,
   IconButton,
   Typography,
   Tooltip,
@@ -25,32 +26,43 @@ import Dialog from '../../components/Dialog/Dialog';
 import cameraSelecionadaCheck from '../../utils/cameraSelecionadaCheck';
 import { dateFormat, hourFormat } from '../../utils/dateFormat';
 
-const NovaCaptura = props => (
+const styles = theme => ({
+  iconButton: {
+    background: theme.palette.common.lightGray,
+  },
+});
+
+const NovaCaptura = withStyles(styles)(props => (
   <ImageCard
     title={dateFormat(props.foto.dataHoraCaptura)}
     subtitle={hourFormat(props.foto.dataHoraCaptura)}
     image={props.foto.conteudo}
     leftButton={
       <Tooltip title="Descartar">
-        <IconButton onClick={() => props.openModalDescartar(props.foto.id)}>
+        <IconButton
+          className={props.classes.iconButton}
+          onClick={() => props.openModalDescartar(props.foto.id)}>
           <Close color="error" />
         </IconButton>
       </Tooltip>
     }
     rightButton={
       <Tooltip title="Catalogar">
-        <IconButton onClick={() => props.openModalCatalogar(props.foto.id)}>
+        <IconButton
+          className={props.classes.iconButton}
+          onClick={() => props.openModalCatalogar(props.foto.id)}>
           <Check color="primary" />
         </IconButton>
       </Tooltip>
     }
   />
-);
+));
 
 NovaCaptura.propTypes = {
   foto: PropTypes.object.isRequired,
   openModalDescartar: PropTypes.func.isRequired,
   openModalCatalogar: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
 class NovasCapturas extends React.Component {

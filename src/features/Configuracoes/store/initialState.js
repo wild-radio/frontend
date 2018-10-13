@@ -1,8 +1,8 @@
 export default {
   camera: {
-    ativa: false,
-    temporizador: false,
-    presenca: false,
+    ativa: 0,
+    temporizador: 0,
+    presenca: 0,
     horizontal: 0,
     vertical: 0,
   },

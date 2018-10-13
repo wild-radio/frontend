@@ -1,15 +1,10 @@
-/**
- * TODOs:
- *  - Envio das alterações nas configurações
- *  - Modal de espera de confirmação do ângulo (WebSockets)
- */
 // React & Redux
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
 // Material UI
-import { withStyles, Divider, Typography } from '@material-ui/core';
+import { withStyles, Divider, Typography, CircularProgress } from '@material-ui/core';
 import { Switch } from 'redux-form-material-ui';
 
 // Componentes internos
@@ -19,8 +14,13 @@ import Slider from '../../components/SliderWrapper/SliderWrapper';
 
 // Utils
 import cameraSelecionadaCheck from '../../utils/cameraSelecionadaCheck';
+import { mountInitialValues, mountToSave } from './mount';
+import { WEB_SOCKETS } from '../../utils/url';
 
-const styles = theme => ({
+// Tempo estimado para entrega da foto de confirmação (em segundos)
+const TEMPO_ESTIMADO = 30;
+
+const fieldContainerStyles = theme => ({
   container: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -35,7 +35,7 @@ const styles = theme => ({
   },
 });
 
-const FieldContainer = withStyles(styles)(props => (
+const FieldContainer = withStyles(fieldContainerStyles)(props => (
   <div>
     <div className={props.classes.container}>
       <div>
@@ -58,20 +58,102 @@ FieldContainer.propTypes = {
   vertical: PropTypes.bool,
 };
 
+const styles = {
+  capturaContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  dialogText: {
+    marginBottom: 16,
+  },
+};
+
 class Configuracoes extends React.Component {
   state = {
     validacao: {
       open: false,
+      values: null,
     },
     captura: {
       open: false,
+      values: null,
+      progress: 0,
+      conteudo: null,
     },
+    interval: null,
+    webSocket: null,
   };
 
   componentWillMount() {
     cameraSelecionadaCheck();
-    this.props.thunks.getConfiguracao();
+    this.initialLoad();
   }
+
+  initialLoad = async () => {
+    await this.props.thunks.getConfiguracao();
+    this.props.initialize(mountInitialValues(this.props.camera));
+  };
+
+  componentWillUnmount() {
+    this.props.actions.clearConfiguracao();
+  }
+
+  setInterval = () => this.setState({ interval: setInterval(this.incrementProgress, 1000) });
+
+  clearInterval = () => {
+    clearInterval(this.state.interval);
+    this.setState({ interval: null });
+  };
+
+  incrementProgress = () =>
+    this.setState({
+      captura: { ...this.state.captura, progress: this.state.captura.progress + 1 },
+    });
+
+  openCaptura = () => {
+    this.setInterval();
+
+    const webSocket = new WebSocket(WEB_SOCKETS);
+    webSocket.onopen = () =>
+      webSocket.send(JSON.stringify({ idCamera: this.props.cameraSelecionada.id }));
+    webSocket.onmessage = ({ data }) => {
+      this.props.appThunks.showSnackbar('Captura recebida', 'success');
+      this.setState({ captura: { ...this.state.captura, conteudo: data } });
+      webSocket.close();
+    };
+    webSocket.onclose = () => this.setState({ webSocket: null });
+
+    this.setState({
+      captura: { open: true, progress: 0, values: this.state.validacao.values, conteudo: null },
+      validacao: { open: false },
+      webSocket,
+    });
+  };
+
+  closeCaptura = () => {
+    this.clearInterval();
+
+    if (this.state.webSocket) {
+      this.state.webSocket.close();
+    }
+
+    this.setState({ captura: { open: false, progress: 0 }, webSocket: null });
+  };
+
+  hasAngleChanged = values =>
+    values.horizontal !== this.props.camera.horizontal ||
+    values.vertical !== this.props.camera.vertical;
+
+  onSubmit = formValues => {
+    const values = mountToSave(formValues);
+
+    if (this.hasAngleChanged(values)) {
+      this.setState({ validacao: { open: true, values } });
+    } else {
+      this.props.thunks.putConfiguracao(values);
+    }
+  };
 
   render() {
     return (
@@ -79,6 +161,7 @@ class Configuracoes extends React.Component {
         <Frame
           title="Configurações"
           primaryButton="Salvar"
+          onClickPrimaryButton={this.props.handleSubmit(this.onSubmit)}
           secondaryButton="Descartar"
           onClickBackButton={this.props.routesThunks.inicio}>
           <form>
@@ -116,25 +199,66 @@ class Configuracoes extends React.Component {
           </form>
         </Frame>
         <Dialog
-          title="Validação de novo ângulo"
+          title="Posicionamento alterado"
           confirm="Sim"
-          onClickConfirm={() => console.log('TODO: sim')}
+          onClickConfirm={() => {
+            this.props.thunks.postConfiguracaoConfirmacao(this.state.validacao.values);
+
+            this.openCaptura();
+          }}
           cancel="Não"
-          onClickCancel={() => console.log('TODO: não')}
+          onClickCancel={() => {
+            this.props.thunks.putConfiguracao(this.state.validacao.values);
+            this.setState({ validacao: { open: false } });
+          }}
           open={this.state.validacao.open}>
+          <Typography className={this.props.classes.dialogText}>
+            Você deseja solicitar uma captura para validação do novo posicionamento?
+          </Typography>
           <Typography>
-            Você deseja solicitar uma captura para validação do novo ângulo definido? A imagem deve
-            demorar cerca de 30 segundos para chegar.
+            A imagem deve demorar cerca de {TEMPO_ESTIMADO} segundos para chegar.
           </Typography>
         </Dialog>
         <Dialog
-          title="Aguardando captura de validação..."
+          title={
+            this.state.captura.conteudo === null
+              ? 'Aguardando captura de validação...'
+              : 'Captura recebida'
+          }
           confirm="Confirmar"
-          onClickConfirm={() => console.log('TODO: confirmar')}
-          cancel="Cancelar"
-          onClickCancel={() => console.log('TODO: cancelar')}
+          onClickConfirm={async () => {
+            this.closeCaptura();
+            await this.props.thunks.putConfiguracao(this.state.captura.values);
+            this.props.initialize(this.props.camera);
+          }}
+          cancel="Descartar"
+          onClickCancel={async () => {
+            this.closeCaptura();
+            await this.props.thunks.putConfiguracao(this.props.camera);
+            this.props.initialize(this.props.camera);
+            this.props.appThunks.showSnackbar('As configurações foram revertidas', 'info');
+          }}
           open={this.state.captura.open}>
-          <Typography>TODO: carregando...</Typography>
+          {this.state.captura.conteudo === null ? (
+            <div className={this.props.classes.capturaContainer}>
+              <Typography>
+                {this.state.captura.progress} segundo
+                {this.state.captura.progress > 1 ? 's' : ''} passado
+                {this.state.captura.progress > 1 ? 's' : ''}
+              </Typography>
+              <Typography className={this.props.classes.dialogText}>
+                {this.state.captura.progress > TEMPO_ESTIMADO
+                  ? 'O processo está demorando mais do que o esperado'
+                  : `Tempo estimado: ${TEMPO_ESTIMADO} segundos`}
+              </Typography>
+              <CircularProgress size={50} />
+            </div>
+          ) : (
+            <img
+              src={`data:image/png;base64, ${this.state.captura.conteudo}`}
+              alt="Captura de validação"
+            />
+          )}
         </Dialog>
       </div>
     );
@@ -142,10 +266,15 @@ class Configuracoes extends React.Component {
 }
 
 Configuracoes.propTypes = {
+  actions: PropTypes.object.isRequired,
   thunks: PropTypes.object.isRequired,
   appThunks: PropTypes.object.isRequired,
   routesThunks: PropTypes.object.isRequired,
   camera: PropTypes.object.isRequired,
+  cameraSelecionada: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  initialize: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };
 
-export default Configuracoes;
+export default withStyles(styles)(Configuracoes);

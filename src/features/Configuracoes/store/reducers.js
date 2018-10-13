@@ -7,6 +7,11 @@ export default (state = initialState, action) => {
         ...state,
         camera: action.payload,
       });
+    case 'configuracoes/camera/clear':
+      return Object.assign({}, state, {
+        ...state,
+        camera: initialState.camera,
+      });
     default:
       return state;
   }

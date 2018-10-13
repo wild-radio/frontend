@@ -30,9 +30,10 @@ export const postConfiguracaoConfirmacao = configuracao => (dispatch, getState) 
   const { cameraSelecionada } = getState().app;
 
   if (cameraSelecionada.id) {
-    return rest.postConfiguracaoConfirmacao(cameraSelecionada.id, configuracao).then(({ data }) => {
-      dispatch(actions.setConfiguracao(data));
-      dispatch(appThunks.showSnackbar('Confirmação requisitada, aguarde resposta...', 'info'));
-    });
+    return rest
+      .postConfiguracaoConfirmacao(cameraSelecionada.id, configuracao)
+      .then(({ data }) =>
+        dispatch(appThunks.showSnackbar('Confirmação requisitada, aguarde resposta...', 'info')),
+      );
   }
 };

@@ -5,12 +5,10 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
 // Thunks & actions
+import * as actions from './store/actions';
 import * as thunks from './store/thunks';
 import * as appThunks from '../../components/App/store/thunks';
 import * as routesThunks from '../../components/Routes/store/thunks';
-
-// Mount utils
-import { mountInitialValues } from './mount';
 
 // Componente filho
 import Configuracoes from './Configuracoes';
@@ -25,10 +23,11 @@ ConfiguracoesContainer = reduxForm({
 
 const mapStateToProps = state => ({
   ...state.configuracoes,
-  initialValues: mountInitialValues(state.configuracoes.camera),
+  cameraSelecionada: state.app.cameraSelecionada,
 });
 
 const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(actions, dispatch),
   thunks: bindActionCreators(thunks, dispatch),
   appThunks: bindActionCreators(appThunks, dispatch),
   routesThunks: bindActionCreators(routesThunks, dispatch),

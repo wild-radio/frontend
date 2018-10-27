@@ -27,10 +27,13 @@ class SistemasRegister extends React.Component {
   isConfirmDisabled = () => !(this.state.identificacao && this.state.numeroSerie);
 
   handleConfirmCadastrar = () =>
-    rest.postSistema(this.state).then(() => {
-      this.props.appThunks.showSnackbar('Sistema cadastrado');
-      this.close();
-    });
+    rest
+      .postSistema(this.state)
+      .then(() => {
+        this.props.appThunks.showSnackbar('Sistema cadastrado');
+        this.close();
+      })
+      .catch(() => {});
 
   handleCancelCadastrar = () => this.close();
 

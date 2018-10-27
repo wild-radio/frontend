@@ -5,14 +5,15 @@ import PropTypes from 'prop-types';
 // Material UI
 import {
   withStyles,
-  Popover as PopoverMU,
+  Button,
   Badge,
   Divider,
   IconButton,
+  Popover as PopoverMU,
   Tooltip,
   Typography,
 } from '@material-ui/core';
-import { Camera } from '@material-ui/icons';
+import { AddBox, Camera } from '@material-ui/icons';
 
 // Utils
 import badgeFormat from '../../utils/badgeFormat';
@@ -24,6 +25,12 @@ const styles = theme => ({
   inner: {
     width: 320,
     minHeight: 300,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  novoSistema: {
+    width: '100%',
   },
   sistema: {
     display: 'flex',
@@ -169,10 +176,22 @@ const Popover = props => {
       }}
       className={props.classes.popover}>
       <div className={props.classes.inner}>
-        <Header {...props} />
-        {props.sistemas.map((sistema, index) => (
-          <Sistema {...props} sistema={sistema} key={index} />
-        ))}
+        <div className={props.classes.sistemas}>
+          <Header {...props} />
+          {props.sistemas.map((sistema, index) => (
+            <Sistema {...props} sistema={sistema} key={index} />
+          ))}
+        </div>
+        <div>
+          <Button
+            className={props.classes.novoSistema}
+            onClick={() => props.openSistemasRegister()}
+            variant="contained"
+            color="default">
+            <AddBox className={props.classes.cameraIcon} />
+            Novo sistema
+          </Button>
+        </div>
       </div>
     </PopoverMU>
   );
@@ -183,6 +202,7 @@ Popover.propTypes = {
   sistemas: PropTypes.array.isRequired,
   appActions: PropTypes.object.isRequired,
   appThunks: PropTypes.object.isRequired,
+  openSistemasRegister: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

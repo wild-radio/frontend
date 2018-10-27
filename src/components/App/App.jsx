@@ -1,7 +1,3 @@
-/**
- * TODOs:
- *  - Pensar na tela/modal de cadastro de sistemas
- */
 // React & Redux
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -26,6 +22,7 @@ import Drawer from './Drawer';
 import Popover from './Popover';
 import Snackbar from './Snackbar';
 import Routes from '../Routes/Routes';
+import SistemasRegister from '../../features/Sistemas/SistemasRegister';
 
 // Axios
 import axiosInterceptor from '../../utils/axiosInterceptor';
@@ -34,10 +31,16 @@ import axiosInterceptor from '../../utils/axiosInterceptor';
 import theme from './theme';
 
 class App extends React.Component {
+  state = {
+    cadastroSistemas: {
+      open: false,
+    },
+  };
+
   componentWillMount() {
     this.props.axiosInterceptor();
     this.props.appThunks.loadSistemas();
-    setInterval(this.props.appThunks.loadSistemas, 10000);
+    setInterval(this.props.appThunks.loadSistemas, 5000);
     this.getCameraSelecionadaFromLocalStorage();
   }
 
@@ -56,8 +59,16 @@ class App extends React.Component {
         <CssBaseline>
           <AppBar {...this.props} />
           <Drawer {...this.props} />
-          <Popover {...this.props} />
+          <Popover
+            {...this.props}
+            openSistemasRegister={() => this.setState({ cadastroSistemas: { open: true } })}
+          />
           <Snackbar {...this.props} />
+          <SistemasRegister
+            {...this.props}
+            open={this.state.cadastroSistemas.open}
+            close={() => this.setState({ cadastroSistemas: { open: false } })}
+          />
           <Routes />
         </CssBaseline>
       </MuiThemeProvider>

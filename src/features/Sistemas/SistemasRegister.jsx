@@ -30,7 +30,7 @@ class SistemasRegister extends React.Component {
     rest
       .postSistema(this.state)
       .then(() => {
-        this.props.appThunks.showSnackbar('Sistema cadastrado');
+        this.props.appThunks.showSnackbar('Sistema cadastrado', 'success');
         this.close();
       })
       .catch(() => {});

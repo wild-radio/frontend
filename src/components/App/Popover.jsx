@@ -24,7 +24,7 @@ const styles = theme => ({
   },
   inner: {
     width: 320,
-    minHeight: 300,
+    minHeight: 284,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',

@@ -1,16 +1,27 @@
-/**
- * TODOs:
- *  - Pensar o que pode ser colocado nesta tela
- *  - Implementar
- */
 // React & Redux
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-// Componentes internos
-import Frame from '../../components/Frame/Frame';
+// Thunks & actions
+import * as appActions from '../../components/App/store/actions';
+import * as routesThunks from '../../components/Routes/store/thunks';
 
-export default () => (
-  <Frame enableBackButton={false} title="Início">
-    TODO: início
-  </Frame>
-);
+// Componente filho
+import Inicio from './Inicio';
+
+let InicioContainer = props => <Inicio {...props} />;
+
+const mapStateToProps = state => ({
+  cameraSelecionada: state.app.cameraSelecionada,
+});
+
+const mapDispatchToProps = dispatch => ({
+  appActions: bindActionCreators(appActions, dispatch),
+  routesThunks: bindActionCreators(routesThunks, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(InicioContainer);

@@ -17,5 +17,10 @@ export const getFotosCatalogo = idCatalogo => axios.get(`${BACK}/catalogos/${idC
 export const deleteFotoCatalogo = (idCatalogo, idFoto) =>
   axios.delete(`${BACK}/catalogos/${idCatalogo}/fotos/${idFoto}`);
 
+export const transferirFotoCatalogo = (idCatalogoOrigem, idCatalogoDestino, idFoto) =>
+  axios.put(
+    `${BACK}/catalogos/${idCatalogoOrigem}/fotos/${idFoto}/transferir-para/${idCatalogoDestino}`,
+  );
+
 export const transferirFotosCatalogo = (idCatalogoOrigem, idCatalogoDestino) =>
   axios.put(`${BACK}/catalogos/${idCatalogoOrigem}/fotos/transferir-para/${idCatalogoDestino}`);

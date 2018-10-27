@@ -3,17 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Material UI
-import {
-  withStyles,
-  Button,
-  IconButton,
-  Typography,
-  Tooltip,
-  TextField,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-} from '@material-ui/core';
+import { withStyles, Button, IconButton, Typography, Tooltip, TextField } from '@material-ui/core';
 import { Delete, Eject, Visibility } from '@material-ui/icons';
 
 // Componentes internos
@@ -23,6 +13,7 @@ import ImageCardList from '../../../components/ImageCard/ImageCardList';
 import ImageCard from '../../../components/ImageCard/ImageCard';
 import Empty from '../../../components/Empty/Empty';
 import Dialog from '../../../components/Dialog/Dialog';
+import TransferirDialog from '../TransferirDialog';
 
 const styles = theme => ({
   iconButton: {
@@ -90,7 +81,6 @@ class Catalogos extends React.Component {
     transferir: {
       open: false,
       idOrigem: 0,
-      idDestino: 0,
     },
   };
 
@@ -122,20 +112,16 @@ class Catalogos extends React.Component {
     if (this.props.catalogos.list.length <= 1) {
       return this.props.appThunks.showSnackbar('Não há nenhum catálogo para transferir', 'error');
     }
-    this.setState({ transferir: { open: true, idOrigem, idDestino: 0 } });
+    this.setState({ transferir: { open: true, idOrigem } });
   };
 
-  handleConfirmTransferir = async () => {
-    await this.props.thunks.transferirFotosCatalogo(
-      this.state.transferir.idOrigem,
-      this.state.transferir.idDestino,
-    );
-    this.setState({ transferir: { open: false, idOrigem: 0, idDestino: 0 } });
+  handleConfirmTransferir = async idDestino => {
+    await this.props.thunks.transferirFotosCatalogo(this.state.transferir.idOrigem, idDestino);
+    this.setState({ transferir: { open: false, idOrigem: 0 } });
     this.props.thunks.getCatalogos();
   };
 
-  handleCancelTransferir = () =>
-    this.setState({ transferir: { open: false, idOrigem: 0, idDestino: 0 } });
+  handleCancelTransferir = () => this.setState({ transferir: { open: false, idOrigem: 0 } });
 
   render() {
     const catalogos = this.props.catalogos.list;
@@ -223,32 +209,13 @@ class Catalogos extends React.Component {
           open={this.state.remover.open}>
           <Typography>Esta ação será irreversível</Typography>
         </Dialog>
-        <Dialog
-          title="Selecione o catálogo"
-          confirm="Confirmar"
-          confirmDisabled={!this.state.transferir.idDestino}
+        <TransferirDialog
+          catalogos={catalogos}
+          idOrigem={this.state.transferir.idOrigem}
           onClickConfirm={this.handleConfirmTransferir}
-          cancel="Cancelar"
           onClickCancel={this.handleCancelTransferir}
-          open={this.state.transferir.open}>
-          <RadioGroup
-            name="idDestino"
-            value={`${this.state.transferir.idDestino}`}
-            onChange={(event, value) =>
-              this.setState({ transferir: { ...this.state.transferir, idDestino: value } })
-            }>
-            {catalogos
-              .filter(catalogo => catalogo.id !== this.state.transferir.idOrigem)
-              .map(option => (
-                <FormControlLabel
-                  value={`${option.id}`}
-                  key={option.id}
-                  control={<Radio />}
-                  label={option.nome}
-                />
-              ))}
-          </RadioGroup>
-        </Dialog>
+          open={this.state.transferir.open}
+        />
       </div>
     );
   }

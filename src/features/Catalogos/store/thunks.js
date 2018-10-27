@@ -31,6 +31,11 @@ export const deleteFotoCatalogo = (idCatalogo, idFoto) => dispatch =>
     .deleteFotoCatalogo(idCatalogo, idFoto)
     .then(() => dispatch(appThunks.showSnackbar('Foto removida', 'success')));
 
+export const transferirFotoCatalogo = (idCatalogoOrigem, idCatalogoDestino, idFoto) => dispatch =>
+  rest
+    .transferirFotoCatalogo(idCatalogoOrigem, idCatalogoDestino, idFoto)
+    .then(() => dispatch(appThunks.showSnackbar('Foto transferida', 'success')));
+
 export const transferirFotosCatalogo = (idCatalogoOrigem, idCatalogoDestino) => dispatch =>
   rest
     .transferirFotosCatalogo(idCatalogoOrigem, idCatalogoDestino)

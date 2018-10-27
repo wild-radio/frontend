@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 // Material UI
 import { IconButton, Typography, Tooltip } from '@material-ui/core';
-import { Delete } from '@material-ui/icons';
+import { Delete, Eject } from '@material-ui/icons';
 
 // Componentes internos
 import Frame from '../../../components/Frame/Frame';
@@ -13,6 +13,7 @@ import ImageCardList from '../../../components/ImageCard/ImageCardList';
 import ImageCard from '../../../components/ImageCard/ImageCard';
 import Empty from '../../../components/Empty/Empty';
 import Dialog from '../../../components/Dialog/Dialog';
+import TransferirDialog from '../TransferirDialog';
 
 // Utils
 import { dateFormat, hourFormat } from '../../../utils/dateFormat';
@@ -29,12 +30,20 @@ const Foto = props => (
         </IconButton>
       </Tooltip>
     }
+    rightButton={
+      <Tooltip title="Transferir">
+        <IconButton onClick={() => props.openModalTransferir(props.foto.id)}>
+          <Eject />
+        </IconButton>
+      </Tooltip>
+    }
   />
 );
 
 Foto.propTypes = {
   foto: PropTypes.object.isRequired,
   openModalRemover: PropTypes.func.isRequired,
+  openModalTransferir: PropTypes.func.isRequired,
 };
 
 class CatalogoView extends React.Component {
@@ -42,6 +51,10 @@ class CatalogoView extends React.Component {
     remover: {
       open: false,
       id: 0,
+    },
+    transferir: {
+      open: false,
+      idFoto: 0,
     },
   };
 
@@ -73,7 +86,21 @@ class CatalogoView extends React.Component {
     this.props.thunks.getFotosCatalogo(this.id);
   };
 
-  handleCancelRemover = () => this.setState({ remover: { open: false, id: 0 } });
+  handleCancelTransferir = () => this.setState({ transferir: { open: false, idFoto: 0 } });
+
+  openModalTransferir = idFoto => this.setState({ transferir: { open: true, idFoto } });
+
+  handleConfirmTransferir = async idDestino => {
+    await this.props.thunks.transferirFotoCatalogo(
+      this.id,
+      idDestino,
+      this.state.transferir.idFoto,
+    );
+    this.setState({ transferir: { open: false, idFoto: 0 } });
+    this.props.thunks.getFotosCatalogo(this.id);
+  };
+
+  handleCancelTransferir = () => this.setState({ remover: { open: false, id: 0 } });
 
   render() {
     const { fotos } = this.props;
@@ -100,7 +127,12 @@ class CatalogoView extends React.Component {
           ) : (
             <ImageCardList>
               {fotos.map(foto => (
-                <Foto key={foto.id} foto={foto} openModalRemover={this.openModalRemover} />
+                <Foto
+                  key={foto.id}
+                  foto={foto}
+                  openModalRemover={this.openModalRemover}
+                  openModalTransferir={this.openModalTransferir}
+                />
               ))}
             </ImageCardList>
           )}
@@ -114,6 +146,13 @@ class CatalogoView extends React.Component {
           open={this.state.remover.open}>
           <Typography>Esta ação será irreversível</Typography>
         </Dialog>
+        <TransferirDialog
+          catalogos={this.props.catalogos.filter(catalogo => catalogo.id !== this.id)}
+          idOrigem={this.state.transferir.idOrigem}
+          onClickConfirm={this.handleConfirmTransferir}
+          onClickCancel={this.handleCancelTransferir}
+          open={this.state.transferir.open}
+        />
       </div>
     );
   }

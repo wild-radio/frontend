@@ -28,4 +28,6 @@ export const showSnackbar = (message = '', type) => ({
 
 export const changeCamera = camera => ({ type: 'app/camera/change', payload: camera });
 
+export const clearCamera = () => ({ type: 'app/camera/clear' });
+
 export const setSistemas = sistemas => ({ type: 'app/sistemas/set', payload: sistemas });

@@ -53,6 +53,13 @@ export default (state = initialState, action) => {
         cameraSelecionada: action.payload,
       });
 
+    case 'app/camera/clear':
+      window.localStorage.removeItem('cameraSelecionada');
+      return Object.assign({}, state, {
+        ...state,
+        cameraSelecionada: initialState.cameraSelecionada,
+      });
+
     case 'app/sistemas/set':
       return Object.assign({}, state, {
         ...state,

@@ -41,7 +41,9 @@ const styles = theme => ({
 const Inicio = props => (
   <Frame enableBackButton={false} title="Início">
     <Subtitle>
-      Bem vindo ao WildRadio. Navegue utilizando os botões abaixo ou o menu lateral.
+      Bem vindo ao WildRadio.{' '}
+      {props.cameraSelecionada.id ? '' : 'Selecione uma câmera para ver mais opções. '}
+      Navegue utilizando os botões abaixo ou o menu lateral.
     </Subtitle>
     <div className={props.classes.inner}>
       {props.cameraSelecionada.id ? (

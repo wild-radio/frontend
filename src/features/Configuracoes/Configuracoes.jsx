@@ -44,7 +44,13 @@ const FieldContainer = withStyles(fieldContainerStyles)(props => (
           {props.subtitle}
         </Typography>
       </div>
-      <Field name={props.name} component={props.component} vertical={props.vertical} {...props} />
+      <Field
+        name={props.name}
+        component={props.component}
+        vertical={props.vertical}
+        max={props.max}
+        min={props.min}
+      />
     </div>
     <Divider className={props.classes.divider} />
   </div>
@@ -55,6 +61,8 @@ FieldContainer.propTypes = {
   component: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
   vertical: PropTypes.bool,
 };
 

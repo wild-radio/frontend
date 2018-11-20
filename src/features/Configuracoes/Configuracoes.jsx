@@ -44,7 +44,7 @@ const FieldContainer = withStyles(fieldContainerStyles)(props => (
           {props.subtitle}
         </Typography>
       </div>
-      <Field name={props.name} component={props.component} vertical={props.vertical} />
+      <Field name={props.name} component={props.component} vertical={props.vertical} {...props} />
     </div>
     <Divider className={props.classes.divider} />
   </div>
@@ -156,6 +156,8 @@ class Configuracoes extends React.Component {
   };
 
   render() {
+    const maxSliderValue = this.props.cameraSelecionada.principal ? 60 : 40;
+
     return (
       <div>
         <Frame
@@ -188,6 +190,8 @@ class Configuracoes extends React.Component {
               subtitle="Ajuste de posicionamento horizontal"
               name="horizontal"
               component={Slider}
+              min={-maxSliderValue}
+              max={maxSliderValue}
             />
             <FieldContainer
               title="Posicionamento vertical"
@@ -195,6 +199,8 @@ class Configuracoes extends React.Component {
               name="vertical"
               component={Slider}
               vertical
+              min={-maxSliderValue}
+              max={maxSliderValue}
             />
           </form>
         </Frame>

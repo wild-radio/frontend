@@ -5,6 +5,7 @@ export default () => dispatch => {
   axios.interceptors.response.use(
     response => response,
     error => {
+        console.log(error);
       if (error && error.response && error.response.data) {
         dispatch(appThunks.showSnackbar(error.response.data, 'error'));
       } else {

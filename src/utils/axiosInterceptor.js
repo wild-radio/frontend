@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as appThunks from '../components/App/store/thunks';
 
 export default () => dispatch => {
-    axios.interceptor.request.use(config => {
+    axios.interceptors.request.use(config => {
         console.log('config', config);
     }, error => {
         debugger;

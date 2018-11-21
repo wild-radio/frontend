@@ -18,7 +18,7 @@ import { mountInitialValues, mountToSave } from './mount';
 import { WEB_SOCKETS } from '../../utils/url';
 
 // Tempo estimado para entrega da foto de confirmação (em segundos)
-const TEMPO_ESTIMADO = 30;
+const TEMPO_ESTIMADO = 300;
 
 const fieldContainerStyles = theme => ({
   container: {

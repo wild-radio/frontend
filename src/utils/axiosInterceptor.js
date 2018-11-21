@@ -8,6 +8,7 @@ export default () => dispatch => {
       if (error) {
         console.log(JSON.stringify(error));
       }
+
       if (error && error.response && error.response.data) {
         dispatch(appThunks.showSnackbar(error.response.data, 'error'));
       } else {

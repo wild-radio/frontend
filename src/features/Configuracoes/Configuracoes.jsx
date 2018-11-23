@@ -183,7 +183,7 @@ class Configuracoes extends React.Component {
             />
             <FieldContainer
               title="Temporizador"
-              subtitle="Realizar uma captura a cada 5 minutos"
+              subtitle="Realizar uma captura a cada 10 minutos"
               name="temporizador"
               component={Switch}
             />
